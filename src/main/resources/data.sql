@@ -1,2 +1,2 @@
-INSERT INTO location (code, name, address) VALUES (1, 'İstanbul Airport', 'Tayakadın, Terminal Cad No:1, 34283 Arnavutköy/İstanbul');
-INSERT INTO location (code, name, address) VALUES (2, 'İstanbul Sabiha Gökçen Airport', 'Sanayi, 34906 Pendik/İstanbul');
+INSERT INTO location (code,name, address) VALUES (1,'İstanbul Airport', 'Tayakadın, Terminal Cad No:1, 34283 Arnavutköy/İstanbul');
+INSERT INTO location (code,name, address) VALUES (2,'İstanbul Sabiha Gökçen Airport', 'Sanayi, 34906 Pendik/İstanbul');

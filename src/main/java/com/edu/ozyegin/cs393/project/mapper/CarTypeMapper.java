@@ -11,5 +11,5 @@ import org.mapstruct.factory.Mappers;
 public interface CarTypeMapper {
     CarTypeMapper INSTANCE = Mappers.getMapper(CarTypeMapper.class);
     CarTypeDTO entityToDTO(CarType car);
-    CarType DTOToEntity(CarTypeMapper carDTO);
+    CarType DTOToEntity(CarTypeDTO carDTO);
 }

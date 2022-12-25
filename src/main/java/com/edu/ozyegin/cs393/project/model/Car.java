@@ -1,6 +1,7 @@
 package com.edu.ozyegin.cs393.project.model;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 
 @Entity
 public class Car {

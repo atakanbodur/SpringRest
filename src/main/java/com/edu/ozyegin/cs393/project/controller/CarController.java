@@ -1,10 +1,11 @@
 package com.edu.ozyegin.cs393.project.controller;
 
+import com.edu.ozyegin.cs393.project.dto.CarDTO;
 import com.edu.ozyegin.cs393.project.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController()
 @RequestMapping(value = "/cars")
@@ -12,4 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class CarController {
     @Autowired
     CarService carService;
+
+    @GetMapping(value = "")
+    List<CarDTO> findAll() {
+        return carService.findAll();
+    }
+
+    @GetMapping(value = "/{id}")
+    CarDTO findById(@PathVariable int id) {
+        return carService.findById(id);
+    }
+
+    @PostMapping("/save")
+    CarDTO save(@RequestBody CarDTO locationDTO){
+        return carService.save(locationDTO);
+    }
 }

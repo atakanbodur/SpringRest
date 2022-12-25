@@ -1,32 +1,32 @@
 package com.edu.ozyegin.cs393.project.controller;
 
-import com.edu.ozyegin.cs393.project.dto.LocationDTO;
-import com.edu.ozyegin.cs393.project.repository.LocationRepository;
-import com.edu.ozyegin.cs393.project.service.LocationService;
+
+import com.edu.ozyegin.cs393.project.dto.ReservationDTO;
+import com.edu.ozyegin.cs393.project.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController()
-@RequestMapping(value = "/locations")
+@RequestMapping(value = "/reservations")
 @CrossOrigin
-public class LocationController {
+public class ReservationController {
     @Autowired
-    LocationService locationService;
+    ReservationService locationService;
 
     @GetMapping(value = "")
-    List<LocationDTO> findAll() {
+    List<ReservationDTO> findAll() {
         return locationService.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    LocationDTO findById(@PathVariable int id) {
+    ReservationDTO findById(@PathVariable int id) {
         return locationService.findById(id);
     }
 
     @PostMapping("/save")
-    LocationDTO save(@RequestBody LocationDTO locationDTO){
+    ReservationDTO save(@RequestBody ReservationDTO locationDTO){
         return locationService.save(locationDTO);
     }
 }
