@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping(value = "/equipments")
+@RequestMapping(value = "/rstatuses")
 @CrossOrigin
 public class ReservationStatusController {
     @Autowired

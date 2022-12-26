@@ -3,7 +3,11 @@ package com.edu.ozyegin.cs393.project.service;
 import com.edu.ozyegin.cs393.project.dto.CarDTO;
 import com.edu.ozyegin.cs393.project.mapper.CarMapper;
 import com.edu.ozyegin.cs393.project.model.Car;
+import com.edu.ozyegin.cs393.project.model.CarStatus;
+import com.edu.ozyegin.cs393.project.model.CarType;
 import com.edu.ozyegin.cs393.project.repository.CarRepository;
+import com.edu.ozyegin.cs393.project.repository.CarStatusRepository;
+import com.edu.ozyegin.cs393.project.repository.CarTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,12 @@ import java.util.Optional;
 public class CarService {
     @Autowired
     CarRepository carRepository;
+    @Autowired
+    CarStatusRepository carStatusRepository;
+    @Autowired
+    CarTypeRepository carTypeRepository;
+
+
 
     public List<CarDTO> findAll() {
         List<Car> locationList = carRepository.findAll();
@@ -37,5 +47,14 @@ public class CarService {
     public CarDTO save(CarDTO locationDTO) {
         Car a = carRepository.save(CarMapper.INSTANCE.DTOToEntity(locationDTO));
         return CarMapper.INSTANCE.entityToDTO(a);
+    }
+
+    public List<CarDTO> searchAvailableCars(String carType,String transmissionType){
+        List<Car> result = carRepository.findAllByCarStatus_nameAndCarType_nameAndTransmissionType("AVAILABLE", carType, transmissionType);
+        List<CarDTO> carDTOS = new ArrayList<>();
+        for (Car car : result) {
+            carDTOS.add(CarMapper.INSTANCE.entityToDTO(car));
+        }
+        return carDTOS;
     }
 }

@@ -6,7 +6,9 @@ import com.edu.ozyegin.cs393.project.dto.CarTypeDTO;
 import com.edu.ozyegin.cs393.project.model.Car;
 import com.edu.ozyegin.cs393.project.model.CarStatus;
 import com.edu.ozyegin.cs393.project.model.CarType;
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+@Mapper(componentModel = "spring")
 
 public interface CarTypeMapper {
     CarTypeMapper INSTANCE = Mappers.getMapper(CarTypeMapper.class);

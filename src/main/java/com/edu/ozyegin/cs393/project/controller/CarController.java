@@ -14,6 +14,11 @@ public class CarController {
     @Autowired
     CarService carService;
 
+    @GetMapping(value = "/searchAvailable/{carType}/{transmissionType}")
+    List<CarDTO> searchAvailableCars(@PathVariable String carType,@PathVariable String transmissionType) {
+        return carService.searchAvailableCars(carType, transmissionType);
+    }
+
     @GetMapping(value = "")
     List<CarDTO> findAll() {
         return carService.findAll();
