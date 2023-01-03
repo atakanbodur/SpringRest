@@ -7,26 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/* check ok
+ */
 @RestController()
 @RequestMapping(value = "/ctypes")
 @CrossOrigin
 public class CarTypeController {
     @Autowired
-    CarTypeService carStatusService;
+    CarTypeService carTypeService;
 
     @GetMapping(value = "")
     List<CarTypeDTO> findAll() {
-        return carStatusService.findAll();
+        return carTypeService.findAll();
     }
 
     @GetMapping(value = "/{id}")
     CarTypeDTO findById(@PathVariable int id) {
-        return carStatusService.findById(id);
+        return carTypeService.findById(id);
     }
 
     @PostMapping("/save")
     CarTypeDTO save(@RequestBody CarTypeDTO locationDTO) {
-        return carStatusService.save(locationDTO);
+        return carTypeService.save(locationDTO);
     }
 }

@@ -2,11 +2,11 @@ package com.edu.ozyegin.cs393.project.dto;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class ReservationDTO {
 
     int id;
-    //TODO: 8 digit string
     String reservationNumber;
     CarDTO car;
     Date creationDate;
@@ -15,7 +15,9 @@ public class ReservationDTO {
     LocationDTO pickUpLocation;
     LocationDTO dropOffLocation;
     Date returnDate;
-    MemberDTO member;
+    ReservationStatusDTO reservationStatus;
+    List<ServiceDTO> serviceList;
+    List<EquipmentDTO> equipmentList;
 
     public int getId() {
         return id;
@@ -89,11 +91,29 @@ public class ReservationDTO {
         this.returnDate = returnDate;
     }
 
-    public MemberDTO getMember() {
-        return member;
+    public ReservationStatusDTO getReservationStatus() {
+        return reservationStatus;
     }
 
-    public void setMember(MemberDTO member) {
-        this.member = member;
+    public ReservationDTO setReservationStatus(ReservationStatusDTO reservationStatus) {
+        this.reservationStatus = reservationStatus;
+        return this;
+    }
+
+    public List<ServiceDTO> getServiceList() {
+        return serviceList;
+    }
+
+    public ReservationDTO setServiceList(List<ServiceDTO> serviceList) {
+        this.serviceList = serviceList;
+        return this;
+    }
+
+    public List<EquipmentDTO> getEquipmentList() {
+        return equipmentList;
+    }
+
+    public void setEquipmentList(List<EquipmentDTO> equipmentList) {
+        this.equipmentList = equipmentList;
     }
 }

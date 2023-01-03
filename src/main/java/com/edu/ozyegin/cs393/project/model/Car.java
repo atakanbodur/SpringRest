@@ -4,9 +4,10 @@ package com.edu.ozyegin.cs393.project.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name="car")
 public class Car {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String barcode;
@@ -17,10 +18,13 @@ public class Car {
     int mileage;
     String transmissionType;
     double price; //daily
-    @OneToOne
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "car_type_id", referencedColumnName = "id")
     CarType carType;
-    @OneToOne
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "car_status_id", referencedColumnName = "id")
     CarStatus carStatus;
+
 
     public int getId() {
         return id;

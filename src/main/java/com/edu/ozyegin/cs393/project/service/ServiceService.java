@@ -13,19 +13,19 @@ import java.util.Optional;
 @Service
 public class ServiceService {
     @Autowired
-    ServiceRepository locationRepository;
+    ServiceRepository serviceRepository;
 
     public List<ServiceDTO> findAll() {
-        List<com.edu.ozyegin.cs393.project.model.Service> locationList = locationRepository.findAll();
+        List<com.edu.ozyegin.cs393.project.model.Service> all = serviceRepository.findAll();
         List<ServiceDTO> dtos = new ArrayList<>();
-        for (com.edu.ozyegin.cs393.project.model.Service location : locationList) {
-            dtos.add(ServiceMapper.INSTANCE.entityToDTO(location));
+        for (com.edu.ozyegin.cs393.project.model.Service service : all) {
+            dtos.add(ServiceMapper.INSTANCE.entityToDTO(service));
         }
         return dtos;
     }
 
     public ServiceDTO findById(int id) {
-        Optional<com.edu.ozyegin.cs393.project.model.Service> l = locationRepository.findById(id);
+        Optional<com.edu.ozyegin.cs393.project.model.Service> l = serviceRepository.findById(id);
         if (l.isPresent()) {
             com.edu.ozyegin.cs393.project.model.Service location = l.get();
             return ServiceMapper.INSTANCE.entityToDTO(location);
@@ -33,8 +33,8 @@ public class ServiceService {
         else return null;
     }
 
-    public ServiceDTO save(ServiceDTO locationDTO) {
-        com.edu.ozyegin.cs393.project.model.Service a = locationRepository.save(ServiceMapper.INSTANCE.DTOToEntity(locationDTO));
+    public ServiceDTO save(ServiceDTO serviceDTO) {
+        com.edu.ozyegin.cs393.project.model.Service a = serviceRepository.save(ServiceMapper.INSTANCE.DTOToEntity(serviceDTO));
         return ServiceMapper.INSTANCE.entityToDTO(a);
     }
 }

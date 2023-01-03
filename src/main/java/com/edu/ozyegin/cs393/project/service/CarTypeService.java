@@ -15,28 +15,28 @@ import java.util.Optional;
 @Service
 public class CarTypeService {
     @Autowired
-    CarTypeRepository locationRepository;
+    CarTypeRepository carTypeRepository;
 
     public List<CarTypeDTO> findAll() {
-        List<CarType> locationList = locationRepository.findAll();
+        List<CarType> all = carTypeRepository.findAll();
         List<CarTypeDTO> dtos = new ArrayList<>();
-        for (CarType location : locationList) {
-            dtos.add(CarTypeMapper.INSTANCE.entityToDTO(location));
+        for (CarType carType : all) {
+            dtos.add(CarTypeMapper.INSTANCE.entityToDTO(carType));
         }
         return dtos;
     }
 
     public CarTypeDTO findById(int id) {
-        Optional<CarType> l = locationRepository.findById(id);
+        Optional<CarType> l = carTypeRepository.findById(id);
         if (l.isPresent()) {
-            CarType location = l.get();
-            return CarTypeMapper.INSTANCE.entityToDTO(location);
+            CarType carType = l.get();
+            return CarTypeMapper.INSTANCE.entityToDTO(carType);
         }
         else return null;
     }
 
-    public CarTypeDTO save(CarTypeDTO locationDTO) {
-        CarType a = locationRepository.save(CarTypeMapper.INSTANCE.DTOToEntity(locationDTO));
+    public CarTypeDTO save(CarTypeDTO carTypeDTO) {
+        CarType a = carTypeRepository.save(CarTypeMapper.INSTANCE.DTOToEntity(carTypeDTO));
         return CarTypeMapper.INSTANCE.entityToDTO(a);
     }
 }

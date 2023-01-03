@@ -17,10 +17,10 @@ public class CarStatusService {
     CarStatusRepository carStatusRepository;
 
     public List<CarStatusDTO> findAll() {
-        List<CarStatus> locationList = carStatusRepository.findAll();
+        List<CarStatus> all = carStatusRepository.findAll();
         List<CarStatusDTO> dtos = new ArrayList<>();
-        for (CarStatus location : locationList) {
-            dtos.add(CarStatusMapper.INSTANCE.entityToDTO(location));
+        for (CarStatus carStatus : all) {
+            dtos.add(CarStatusMapper.INSTANCE.entityToDTO(carStatus));
         }
         return dtos;
     }
@@ -28,13 +28,13 @@ public class CarStatusService {
     public CarStatusDTO findById(int id) {
         Optional<CarStatus> l = carStatusRepository.findById(id);
         if (l.isPresent()) {
-            CarStatus location = l.get();
-            return CarStatusMapper.INSTANCE.entityToDTO(location);
+            CarStatus carStatus = l.get();
+            return CarStatusMapper.INSTANCE.entityToDTO(carStatus);
         } else return null;
     }
 
-    public CarStatusDTO save(CarStatusDTO locationDTO) {
-        CarStatus a = carStatusRepository.save(CarStatusMapper.INSTANCE.DTOToEntity(locationDTO));
+    public CarStatusDTO save(CarStatusDTO carStatusDTO) {
+        CarStatus a = carStatusRepository.save(CarStatusMapper.INSTANCE.DTOToEntity(carStatusDTO));
         return CarStatusMapper.INSTANCE.entityToDTO(a);
     }
 }

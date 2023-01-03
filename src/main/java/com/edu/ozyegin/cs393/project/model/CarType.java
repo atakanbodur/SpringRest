@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name="car_type")
 public class CarType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
 

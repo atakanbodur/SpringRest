@@ -14,28 +14,28 @@ import java.util.Optional;
 @Service
 public class ReservationStatusService {
     @Autowired
-    ReservationStatusRepository locationRepository;
+    ReservationStatusRepository reservationStatusRepository;
 
     public List<ReservationStatusDTO> findAll() {
-        List<ReservationStatus> locationList = locationRepository.findAll();
+        List<ReservationStatus> all = reservationStatusRepository.findAll();
         List<ReservationStatusDTO> dtos = new ArrayList<>();
-        for (ReservationStatus location : locationList) {
-            dtos.add(ReservationStatusMapper.INSTANCE.entityToDTO(location));
+        for (ReservationStatus reservationStatus : all) {
+            dtos.add(ReservationStatusMapper.INSTANCE.entityToDTO(reservationStatus));
         }
         return dtos;
     }
 
     public ReservationStatusDTO findById(int id) {
-        Optional<ReservationStatus> l = locationRepository.findById(id);
+        Optional<ReservationStatus> l = reservationStatusRepository.findById(id);
         if (l.isPresent()) {
-            ReservationStatus location = l.get();
-            return ReservationStatusMapper.INSTANCE.entityToDTO(location);
+            ReservationStatus reservationStatus = l.get();
+            return ReservationStatusMapper.INSTANCE.entityToDTO(reservationStatus);
         }
         else return null;
     }
 
-    public ReservationStatusDTO save(ReservationStatusDTO locationDTO) {
-        ReservationStatus a = locationRepository.save(ReservationStatusMapper.INSTANCE.DTOToEntity(locationDTO));
+    public ReservationStatusDTO save(ReservationStatusDTO reservationStatusDTO) {
+        ReservationStatus a = reservationStatusRepository.save(ReservationStatusMapper.INSTANCE.DTOToEntity(reservationStatusDTO));
         return ReservationStatusMapper.INSTANCE.entityToDTO(a);
     }
 }

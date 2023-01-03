@@ -1,23 +1,22 @@
 package com.edu.ozyegin.cs393.project.model;
 
 import javax.persistence.*;
-
-
 import java.util.List;
 
 @Entity
+@Table(name="member")
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
     String address;
     String email;
     String phone;
-    String drivLicenseNum;
+    String drivingLicenseNum;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(fetch= FetchType.LAZY,mappedBy = "member")
     List<Reservation> reservations;
 
     public int getId() {
@@ -60,12 +59,12 @@ public class Member {
         this.phone = phone;
     }
 
-    public String getDrivLicenseNum() {
-        return drivLicenseNum;
+    public String getDrivingLicenseNum() {
+        return drivingLicenseNum;
     }
 
-    public void setDrivLicenseNum(String drivLicenseNum) {
-        this.drivLicenseNum = drivLicenseNum;
+    public void setDrivingLicenseNum(String drivingLicenseNum) {
+        this.drivingLicenseNum = drivingLicenseNum;
     }
 
     public List<Reservation> getReservations() {

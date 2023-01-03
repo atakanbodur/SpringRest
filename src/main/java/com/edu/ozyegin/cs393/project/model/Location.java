@@ -3,10 +3,11 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name="location")
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int code;
     String name;
     String address;

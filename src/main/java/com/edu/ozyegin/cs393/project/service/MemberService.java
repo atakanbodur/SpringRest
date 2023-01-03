@@ -14,19 +14,19 @@ import java.util.Optional;
 @Service
 public class MemberService {
     @Autowired
-    MemberRepository locationRepository;
+    MemberRepository memberRepository;
 
     public List<MemberDTO> findAll() {
-        List<Member> locationList = locationRepository.findAll();
+        List<Member> all = memberRepository.findAll();
         List<MemberDTO> dtos = new ArrayList<>();
-        for (Member location : locationList) {
-            dtos.add(MemberMapper.INSTANCE.entityToDTO(location));
+        for (Member member : all) {
+            dtos.add(MemberMapper.INSTANCE.entityToDTO(member));
         }
         return dtos;
     }
 
     public MemberDTO findById(int id) {
-        Optional<Member> l = locationRepository.findById(id);
+        Optional<Member> l = memberRepository.findById(id);
         if (l.isPresent()) {
             Member location = l.get();
             return MemberMapper.INSTANCE.entityToDTO(location);
@@ -34,8 +34,8 @@ public class MemberService {
         else return null;
     }
 
-    public MemberDTO save(MemberDTO locationDTO) {
-        Member a = locationRepository.save(MemberMapper.INSTANCE.DTOToEntity(locationDTO));
+    public MemberDTO save(MemberDTO memberDTO) {
+        Member a = memberRepository.save(MemberMapper.INSTANCE.DTOToEntity(memberDTO));
         return MemberMapper.INSTANCE.entityToDTO(a);
     }
 }

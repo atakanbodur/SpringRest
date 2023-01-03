@@ -4,9 +4,10 @@ import javax.persistence.*;
 
 
 @Entity
+
 public class Equipment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
     double price;

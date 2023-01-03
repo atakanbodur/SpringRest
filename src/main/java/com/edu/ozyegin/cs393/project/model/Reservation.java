@@ -1,30 +1,47 @@
 package com.edu.ozyegin.cs393.project.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name="reservation")
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     int id;
 
-    //TODO: 8 digit string
     String reservationNumber;
 
-    @OneToOne
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     Car car;
 
     Date creationDate;
     Date pickupDate;
     Date dropOffDate;
 
-    @OneToOne
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "location_pickuo", referencedColumnName = "code")
     Location pickUpLocation;
-    @OneToOne
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "location_dropOff", referencedColumnName = "code")
     Location dropOffLocation;
+    Date returnDate;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JsonIgnore
+    Member member;
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "reservation_Status", referencedColumnName = "id")
+    ReservationStatus reservationStatus;
+    @OneToMany(fetch= FetchType.LAZY)
+    List<Service> serviceList;
+    @OneToMany(fetch= FetchType.LAZY)
+    List<Equipment> equipmentList;
 
     public int getId() {
         return id;
@@ -106,10 +123,29 @@ public class Reservation {
         this.member = member;
     }
 
-    Date returnDate;
+    public ReservationStatus getReservationStatus() {
+        return reservationStatus;
+    }
 
-    @ManyToOne
-    Member member;
+    public Reservation setReservationStatus(ReservationStatus reservationStatus) {
+        this.reservationStatus = reservationStatus;
+        return this;
+    }
 
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
 
+    public Reservation setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
+        return this;
+    }
+
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
+    }
+
+    public void setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
+    }
 }

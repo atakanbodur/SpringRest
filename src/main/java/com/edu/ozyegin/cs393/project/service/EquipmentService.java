@@ -15,28 +15,28 @@ import java.util.Optional;
 @Service
 public class EquipmentService {
     @Autowired
-    EquipmentRepository locationRepository;
+    EquipmentRepository equipmentRepository;
 
     public List<EquipmentDTO> findAll() {
-        List<Equipment> locationList = locationRepository.findAll();
+        List<Equipment> all = equipmentRepository.findAll();
         List<EquipmentDTO> dtos = new ArrayList<>();
-        for (Equipment location : locationList) {
-            dtos.add(EquipmentMapper.INSTANCE.entityToDTO(location));
+        for (Equipment equipment : all) {
+            dtos.add(EquipmentMapper.INSTANCE.entityToDTO(equipment));
         }
         return dtos;
     }
 
     public EquipmentDTO findById(int id) {
-        Optional<Equipment> l = locationRepository.findById(id);
+        Optional<Equipment> l = equipmentRepository.findById(id);
         if (l.isPresent()) {
-            Equipment location = l.get();
-            return EquipmentMapper.INSTANCE.entityToDTO(location);
+            Equipment equipment = l.get();
+            return EquipmentMapper.INSTANCE.entityToDTO(equipment);
         }
         else return null;
     }
 
     public EquipmentDTO save(EquipmentDTO locationDTO) {
-        Equipment a = locationRepository.save(EquipmentMapper.INSTANCE.DTOToEntity(locationDTO));
+        Equipment a = equipmentRepository.save(EquipmentMapper.INSTANCE.DTOToEntity(locationDTO));
         return EquipmentMapper.INSTANCE.entityToDTO(a);
     }
 }

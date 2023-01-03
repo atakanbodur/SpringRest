@@ -10,8 +10,7 @@ public class MemberDTO {
     String address;
     String email;
     String phone;
-    String drivLicenseNum;
-
+    String drivingLicenseNum;
     List<ReservationDTO> reservations;
 
     public int getId() {
@@ -54,12 +53,12 @@ public class MemberDTO {
         this.phone = phone;
     }
 
-    public String getDrivLicenseNum() {
-        return drivLicenseNum;
+    public String getDrivingLicenseNum() {
+        return drivingLicenseNum;
     }
 
-    public void setDrivLicenseNum(String drivLicenseNum) {
-        this.drivLicenseNum = drivLicenseNum;
+    public void setDrivingLicenseNum(String drivingLicenseNum) {
+        this.drivingLicenseNum = drivingLicenseNum;
     }
 
     public List<ReservationDTO> getReservations() {

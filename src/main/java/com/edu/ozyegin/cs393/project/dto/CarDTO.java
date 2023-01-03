@@ -4,8 +4,6 @@ package com.edu.ozyegin.cs393.project.dto;
 import com.edu.ozyegin.cs393.project.model.CarStatus;
 import com.edu.ozyegin.cs393.project.model.CarType;
 
-import javax.persistence.OneToOne;
-
 public class CarDTO {
     int id;
     String barcode;
@@ -17,7 +15,7 @@ public class CarDTO {
     String transmissionType;
     double price; //daily
     CarType carType;
-
+    CarStatus carStatus;
     public CarType getCarType() {
         return carType;
     }
@@ -34,7 +32,7 @@ public class CarDTO {
         this.carStatus = carStatus;
     }
 
-    CarStatus carStatus;
+
     public int getId() {
         return id;
     }
@@ -105,5 +103,22 @@ public class CarDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "CarDTO{" +
+                "id=" + id +
+                ", barcode='" + barcode + '\'' +
+                ", licenseNum='" + licenseNum + '\'' +
+                ", passengerCapacity=" + passengerCapacity +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", mileage=" + mileage +
+                ", transmissionType='" + transmissionType + '\'' +
+                ", price=" + price +
+                ", carType=" + carType +
+                ", carStatus=" + carStatus +
+                '}';
     }
 }
