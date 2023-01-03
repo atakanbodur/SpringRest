@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     @Override
-    @EntityGraph(attributePaths = {"member", "car.carType", "car.carStatus", "pickUpLocation", "dropOffLocation", "reservationStatus", "serviceList"})
+    @EntityGraph(attributePaths = {"member", "car.carType", "car.carStatus", "pickUpLocation", "dropOffLocation", "reservationStatus"})
     List<Reservation> findAll();
 
     @EntityGraph(attributePaths = {"member", "dropOffLocation"})

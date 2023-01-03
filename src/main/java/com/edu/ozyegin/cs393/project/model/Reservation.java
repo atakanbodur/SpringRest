@@ -39,8 +39,10 @@ public class Reservation {
     @JoinColumn(name = "reservation_Status", referencedColumnName = "id")
     ReservationStatus reservationStatus;
     @OneToMany(fetch= FetchType.LAZY)
+    @JoinColumn(name = "service_list", referencedColumnName = "id")
     List<Service> serviceList;
     @OneToMany(fetch= FetchType.LAZY)
+    @JoinColumn(name = "equipment_list", referencedColumnName = "id")
     List<Equipment> equipmentList;
 
     public int getId() {

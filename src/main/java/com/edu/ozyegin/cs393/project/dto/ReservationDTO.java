@@ -18,6 +18,7 @@ public class ReservationDTO {
     ReservationStatusDTO reservationStatus;
     List<ServiceDTO> serviceList;
     List<EquipmentDTO> equipmentList;
+    double totalAmount;
 
     public int getId() {
         return id;
@@ -115,5 +116,14 @@ public class ReservationDTO {
 
     public void setEquipmentList(List<EquipmentDTO> equipmentList) {
         this.equipmentList = equipmentList;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public ReservationDTO setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+        return this;
     }
 }

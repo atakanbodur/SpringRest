@@ -30,7 +30,9 @@ public class ReservationService {
     @Autowired
     ServiceRepository serviceRepository;
     @Autowired
-    private EquipmentRepository equipmentRepository;
+    EquipmentRepository equipmentRepository;
+    @Autowired
+    ReservationStatusRepository reservationStatusRepository;
 
 
     public String generateReservationNumber() {
@@ -44,6 +46,7 @@ public class ReservationService {
     }
 
 
+    @Transactional
     public List<ReservationDTO> findAll() {
         List<Reservation> all = reservationRepository.findAll();
         List<ReservationDTO> dtos = new ArrayList<>();
@@ -68,8 +71,10 @@ public class ReservationService {
 
     @Transactional
     public ReservationDTO makeReservation(String carBarcodeNumber, int dayCount, int memberID, int pickUpLocationCode, int dropOffLocationCode, List<Integer> equipmentLists, List<Integer> serviceList) throws Exception {
+        double totalAmount = 0;
         Optional<Car> car = carRepository.findAllBybarcodeAndCarStatus_name(carBarcodeNumber, "AVAILABLE");
         if (!car.isPresent()) throw new RuntimeException("Car not found");
+        totalAmount += car.get().getPrice()*dayCount;
         Optional<Location> pickUpLocation = locationRepository.findById(pickUpLocationCode);
         Optional<Location> dropOffLocation = locationRepository.findById(dropOffLocationCode);
         Optional<Member> member = memberRepository.findById(memberID);
@@ -83,12 +88,31 @@ public class ReservationService {
         reservation.setPickUpLocation(pickUpLocation.get());
         reservation.setDropOffLocation(dropOffLocation.get());
         reservation.setMember(member.get());
+        List<com.edu.ozyegin.cs393.project.model.Service> theServiceList =new ArrayList<>();
+        for(Integer s:serviceList){
+            Optional<com.edu.ozyegin.cs393.project.model.Service> theService = serviceRepository.findById(s);
+            if(theService.isPresent()){
+                theServiceList.add(theService.get());
+                totalAmount+=theService.get().getPrice();
+            }
+        }
+        reservation.setServiceList(theServiceList);
+        List<Equipment> theEquipmentList = new ArrayList<>();
+        for(Integer e:equipmentLists){
+            Optional<Equipment> theEquipment = equipmentRepository.findById(e);
+            if (theEquipment.isPresent()) {
+                theEquipmentList.add(theEquipment.get());
+                totalAmount+=theEquipment.get().getPrice();
+            }
+        }
+        reservation.setEquipmentList(theEquipmentList);
         reservationRepository.save(reservation);
         Optional<CarStatus> cs = carStatusRepository.findByName("LOANED");
         car.get().setCarStatus(cs.get());
         carRepository.save(car.get());
 
         ReservationDTO reservationDTO = ReservationMapper.INSTANCE.entityToDTO(reservation);
+        reservationDTO.setTotalAmount(totalAmount);
         return reservationDTO;
     }
 
@@ -167,6 +191,23 @@ public class ReservationService {
             carRepository.save(c.get());
             return "200";
         }
+        else return "500";
+    }
+
+    @Transactional
+    public String returnCar(String reservationNumber) {
+        Optional<Reservation> reservation = reservationRepository.findByReservationNumber(reservationNumber);
+        if (!reservation.isPresent()) return "404";
+        Optional<Car> c = carRepository.findById(reservation.get().getCar().getId());
+        if(!c.isPresent())
+            return "404";
+        reservation.get().setReservationStatus(reservationStatusRepository.findByName("COMPLETE").get());
+        reservation.get().setReturnDate(new Date());
+        c.get().setCarStatus(carStatusRepository.findByName("AVAILABLE").get());
+        carRepository.save(c.get());
+        reservationRepository.save(reservation.get());
+        if (carRepository.findById(reservation.get().getCar().getId()).get().getCarStatus().getName().equals("AVAILABLE"))
+            return "200";
         else return "500";
     }
 }

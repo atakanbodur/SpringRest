@@ -84,7 +84,19 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
+    @PostMapping("/return-car/{reservationNumber}")
+    ResponseEntity returnCar(@PathVariable String reservationNumber) {
+        Boolean result = false;
+        try {
+            String res = reservationService.returnCar(reservationNumber);
+            if ("OK".equals(res))
+                return ResponseEntity.ok().body(true);
+            else
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     @DeleteMapping("/cancel-reservation/{reservationNumber}")
     ResponseEntity cancelReservation(@PathVariable String reservationNumber){
         String s = reservationService.cancelReservation(reservationNumber);

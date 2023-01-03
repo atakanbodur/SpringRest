@@ -151,3 +151,6 @@ values ( 'Roadside assistance', 120);
 insert into service(name,
                     price)
 values ( 'Insurance', 150);
+
+insert into reservation_status(name)
+values('COMPLETE')
